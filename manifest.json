@@ -1,0 +1,11 @@
+{
+  "manifest_version": 3,
+  "name": "AI Resume Sidekick",
+  "version": "1.0",
+  "description": "Extracts LinkedIn JD and sends to Localhost AI Builder",
+  "permissions": ["activeTab", "scripting"],
+  "host_permissions": ["*://*.linkedin.com/*", "http://localhost:3000/*"],
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
