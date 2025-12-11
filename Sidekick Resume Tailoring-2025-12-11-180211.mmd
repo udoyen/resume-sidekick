@@ -1,0 +1,65 @@
+graph TD
+    %% Define Styles
+    classDef frontend fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
+    classDef backend fill:#fff3e0,stroke:#e65100,stroke-width:2px;
+    classDef ai fill:#f3e5f5,stroke:#4a148c,stroke-width:2px,stroke-dasharray: 5 5;
+    classDef ext fill:#e8f5e9,stroke:#1b5e20,stroke-width:2px;
+
+    %% User Interaction
+    User((User))
+
+    %% Chrome Extension Subgraph
+    subgraph "Chrome Extension (Sidekick)"
+        ExtUI["Popup UI<br/>(popup.html)"]:::ext
+        Scraper["Smart Scraper<br/>(popup.js)"]:::ext
+        AutoFiller["Form Auto-Filler<br/>(popup.js)"]:::ext
+        LinkedIn["LinkedIn Job Page"]:::ext
+    end
+
+    %% Next.js Application Subgraph
+    subgraph "Next.js App (Localhost:3000)"
+        %% Frontend
+        UI["Web Interface<br/>(app/page.tsx)"]:::frontend
+        PDFGen["PDF Renderer<br/>(@react-pdf)"]:::frontend
+        WordGen["Word Generator<br/>(docx)"]:::frontend
+        
+        %% Backend API
+        ParserAPI["API: /parse<br/>(pdf2json)"]:::backend
+        RewriteAPI["API: /rewrite<br/>(Vercel AI SDK)"]:::backend
+    end
+
+    %% External AI Service
+    Gemini["Google Gemini 2.5 Flash<br/>(AI Model)"]:::ai
+
+    %% CONNECTIONS
+
+    %% Flow 1: Extension Scanning
+    User -->|"1. Clicks Scan"| ExtUI
+    ExtUI -->|Trigger| Scraper
+    Scraper -->|Scrape JD Text| LinkedIn
+    Scraper -->|"Copy to Clipboard/Open"| UI
+
+    %% Flow 2: Resume Building
+    User -->|"2. Uploads PDF"| UI
+    UI -->|POST File| ParserAPI
+    ParserAPI -->|Raw Text| UI
+    
+    UI -->|"3. Pastes JD + Instructions"| UI
+    UI -->|"POST Data (Resume + JD)"| RewriteAPI
+    
+    %% AI Processing
+    RewriteAPI -->|Prompt Engineering| Gemini
+    Gemini -->|Structured JSON| RewriteAPI
+    RewriteAPI -->|JSON Data| UI
+
+    %% Flow 3: Generation
+    UI -->|User Clicks Download| PDFGen
+    UI -->|User Clicks Download| WordGen
+    PDFGen -->|"File: Tailored_Resume.pdf"| User
+    WordGen -->|"File: Tailored_Resume.docx"| User
+
+    %% Flow 4: Application
+    User -->|"4. Returns to LinkedIn"| LinkedIn
+    User -->|Clicks Auto-Fill| ExtUI
+    ExtUI -->|Trigger| AutoFiller
+    AutoFiller -->|Fill Form Fields| LinkedIn

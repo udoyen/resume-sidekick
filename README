@@ -1,0 +1,72 @@
+# 🤖 AI Resume Sidekick (Chrome Extension)
+
+A powerful Chrome Extension designed to work alongside the **AI Resume Builder**. It bridges the gap between LinkedIn job postings and your resume tailoring engine, serving as a "Co-Pilot" for your job applications.
+
+**Note:** This extension is a helper tool. It does NOT automate applications in the background (which risks account bans). It operates only when you click it, acting like a human assistant to speed up your workflow.
+
+## ✨ Features
+
+-   **🔍 Smart Job Scanner:** Instantly extracts Job Descriptions from LinkedIn job pages.
+    -   *Automatic Mode:* Detects the main content block.
+    -   *Manual Mode:* Supports highlighting text manually if automatic detection fails.
+-   **📋 Instant Clipboard Sync:** Copies the JD and immediately opens your local AI Resume Builder (`localhost:3000`) for tailoring.
+-   **✍️ Auto-Fill "Easy Apply":** acting like a password manager, it auto-fills LinkedIn "Easy Apply" forms with your saved details (Name, Email, Phone, City, LinkedIn URL).
+-   **🔒 Privacy First:** All your data is stored locally in your browser (`chrome.storage.local`). Nothing is sent to any external server.
+
+## 🛠️ Installation
+
+Since this is a custom developer tool, you install it as an "Unpacked Extension."
+
+1.  **Clone or Download** this repository to your computer.
+2.  Open Google Chrome and navigate to `chrome://extensions`.
+3.  Toggle **Developer mode** on (top right corner switch).
+4.  Click the **Load unpacked** button (top left).
+5.  Select the folder where you saved this project (`resume-sidekick`).
+6.  The extension **"AI Resume Sidekick"** should appear in your list. Pin it to your toolbar for easy access!
+
+## ⚙️ Configuration
+
+Before using the Auto-Fill feature, you must save your personal details:
+
+1.  Click the **Extension Icon** in your Chrome toolbar.
+2.  Click the **Settings Icon (⚙️)** in the top-right corner of the popup.
+3.  Enter your details:
+    -   **First/Last Name:** As they appear on your resume.
+    -   **Email & Phone:** Your contact info.
+    -   **City:** Your current location (e.g., "Lagos, Nigeria").
+    -   **LinkedIn URL:** Your full profile link.
+4.  Click **Save Profile**.
+
+## 🚀 How to Use
+
+### Step 1: Scan a Job
+1.  Navigate to a LinkedIn Job posting.
+2.  Click the **Extension Icon**.
+3.  Click **"1. Scan Job & Tailor Resume"**.
+4.  The extension will copy the JD text and open your **AI Resume Builder** in a new tab.
+5.  *Fallback:* If scanning fails, highlight the text on the page manually, then click the button again.
+
+### Step 2: Tailor Resume
+1.  In the opened tab, generate your tailored resume using the AI Builder.
+2.  Download your new **PDF**.
+
+### Step 3: Apply
+1.  Return to the LinkedIn tab.
+2.  Click the **"Easy Apply"** button.
+3.  Open the Extension and click **"2. Auto-Fill Application"**.
+4.  Watch as your fields are populated automatically!
+5.  Upload your tailored PDF and submit.
+
+## 🐛 Troubleshooting
+
+| Issue | Solution |
+| :--- | :--- |
+| **"No content found"** | The scraper couldn't find the JD. Highlight the text manually with your mouse and try clicking the button again. |
+| **"Auto-copy blocked"** | Browsers sometimes block clipboard access. The extension will show a text box with the content; simply copy it manually (Ctrl+C). |
+| **Settings not saving** | Ensure you clicked "Save Profile" and saw the green success message. Restart Chrome if issues persist. |
+
+## 📄 License
+
+**Non-Commercial Use Only (CC BY-NC 4.0)**
+
+This project is licensed under the Creative Commons Attribution-NonCommercial 4.0 International License. You are free to use and modify it for personal use, but commercial distribution is prohibited without permission.
